@@ -165,10 +165,10 @@
 
     - name: Install Drupal.
       command: >
-        drush si -y --site-name="{{ drupal_site_name }}"
+        drush si -y --site-name= "{{ drupal_site_name }}"
         --account-name=admin
         --account-pass=admin
-        --db-url=mysql://{{ domain }}:1234@localhost/{{ domain }}
+        --db-url=mysql=//{{ domain }}:1234@localhost/{{ domain }}
         --root={{ drupal_core_path }}
         creates={{ drupal_core_path }}/sites/default/settings.php
       notify: restart apache
