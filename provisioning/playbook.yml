@@ -7,11 +7,15 @@
 
   pre_tasks:
     - name: Update apt cache if needed.
-      apt: update_cache=yes cache_valid_time=3600
+      apt: 
+        update_cache: yes 
+        cache_valid_time: 3600
 
   handlers:
     - name: restart apache
-      service: name=apache2 state=restarted
+      service: 
+        name: apache2 
+        state: restarted
 
   tasks:
     - name: Get software for apt repository management.
@@ -21,7 +25,9 @@
         - python-pycurl
 
     - name: Add ondrej repository for later versions of PHP.
-      apt_repository: repo='ppa:ondrej/php' update_cache=yes
+      apt_repository: 
+        repo: 'ppa:ondrej/php' 
+        update_cache: yes
 
     - name: "Install Apache, MySQL, PHP, and other dependencies."
       apt: "name={{ item }} state=present"
@@ -50,7 +56,9 @@
         - ufw
 
     - name: Disable the firewall (since this is for local dev only).
-      service: name=ufw state=stopped
+      service: 
+        name: ufw 
+        state: stopped
 
     - name: "Start Apache, MySQL, and PHP."
       service: "name={{ item }} state=started enabled=yes"
@@ -59,7 +67,9 @@
         - mysql
 
     - name: Enable Apache rewrite module (required for Drupal).
-      apache2_module: name=rewrite state=present
+      apache2_module: 
+        name: rewrite 
+        state: present
       notify: restart apache
 
     - name: Add Apache virtualhost for Drupal 8.
